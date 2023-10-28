@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #carousel-container {
+            width: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #carousel-content {
+            display: flex;
+            transition: left 0.5s;
+        }
+
+        .carousel-item {
+            width: 300px;
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div id="carousel-container">
+        <div id="carousel-content">
+            <div class="carousel-item" > Item 1</div>
+            <div class="carousel-item">Item 2</div>
+            <div class="carousel-item">Item 3</div>
+            <div class="carousel-item">Item 4</div>
+        </div>
+    </div>
+    <button onclick="scrollForward()">Next</button>
+    <button onclick="scrollBackward()">Previous</button>
+
+    <script>
+        const container = document.getElementById('carousel-container');
+        const content = document.getElementById('carousel-content');
+        const items = document.querySelectorAll('.carousel-item');
+
+        let itemWidth = items[0].offsetWidth;
+        let currentIndex = 0;
+
+        function scrollForward() {
+            currentIndex = (currentIndex + 1) % items.length;
+            updateCarousel();
+        }
+
+        function scrollBackward() {
+            currentIndex = (currentIndex - 1 + items.length) % items.length;
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const offset = -currentIndex * itemWidth;
+            content.style.left = offset + 'px';
+        }
+
+        window.addEventListener('resize', () => {
+            itemWidth = items[0].offsetWidth;
+            updateCarousel();
+        });
+
+        updateCarousel();
+    {
+    }
+    </script>
+</body>
+</html> 
